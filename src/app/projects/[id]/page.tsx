@@ -35,7 +35,7 @@ export default async function ProjectDetails({ params }: { params: { id: string}
               "use server"
               await updateTaskStatus(task.id, task.status === "DONE" ? "TODO" : "DONE")
             }}>
-              <button type="submit" className="mt-2 btn btn-secondary">
+              <button type="submit" className="mt-2 btn btn-secondary ">
                 Mark as {task.status === "DONE" ? "TODO" : "DONE"}
               </button>
             </form>

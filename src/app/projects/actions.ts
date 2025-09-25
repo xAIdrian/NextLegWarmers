@@ -2,7 +2,6 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
 
 export async function createProject(formData: FormData) {
   const name = String(formData.get("name") || "").trim();
