@@ -13,24 +13,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id           String       @id @default(cuid())
-  email        String       @unique
-  name         String?
-  image        String?
-  passwordHash String?
-  projects     Project[]
-  tasks        Task[]       @relation("AssigneeTasks")
-  memberships  Membership[]
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-  Comment      Comment[]
-}
-
 model Project {
   id          String       @id @default(cuid())
-  ownerId     String
-  owner       User         @relation(fields: [ownerId], references: [id])
   name        String
   description String?
   tasks       Task[]
@@ -47,7 +31,6 @@ model Task {
   body          String?
   status        TaskStatus @default(TODO)
   assigneeId    String?
-  assignee      User?      @relation("AssigneeTasks", fields: [assigneeId], references: [id])
   attachmentKey String?
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
@@ -61,7 +44,6 @@ model Comment {
   taskId    String
   task      Task     @relation(fields: [taskId], references: [id])
   authorId  String
-  author    User     @relation(fields: [authorId], references: [id])
   body      String
   createdAt DateTime @default(now())
 }
@@ -76,12 +58,10 @@ model FeatureFlag {
 model Membership {
   id        String  @id @default(cuid())
   projectId String
-  userId    String
   role      Role    @default(MEMBER)
   project   Project @relation(fields: [projectId], references: [id])
-  user      User    @relation(fields: [userId], references: [id])
 
-  @@unique([projectId, userId])
+  @@unique([projectId])
 }
 
 enum Role {

@@ -7,13 +7,13 @@ import { z } from "zod";
 export async function createProject(formData: FormData) {
   const name = String(formData.get("name") || "").trim();
   const description = String(formData.get("description") || "").trim();
+  const id = Math.random().toString(36).substring(2, 15); // random value for demonstration
 
   await prisma.project.create({
     data: { 
       name, description, 
-      ownerId: sessionStorage.user.id, 
       memberships: {
-        create: { userId: sessionStorage.user.id, role: "OWNER" }
+        create: { role: "OWNER" }
       }
     }
   });

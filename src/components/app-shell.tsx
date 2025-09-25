@@ -31,8 +31,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <aside className="border-r p-4 space-y-2">
           <div className="text-sm text-muted-foreground">Quick Links</div>
           <Separator />
-          <Link className="block hover:underline" href="/projects/new">New Project</Link>
-          <Link className="block hover:underline" href="/tasks/new">New Task</Link>
+          <Link className="block hover:underline" href="/projects">New Project</Link>
+          <Link className="block hover:underline" href="/tasks">New Task</Link>
         </aside>
         <main className="p-6">{children}</main>
       </div>
